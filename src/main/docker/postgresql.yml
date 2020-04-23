@@ -1,0 +1,11 @@
+version: '2'
+services:
+  focpgestionb-postgresql:
+    image: postgres:12.1
+    # volumes:
+    #     - ~/volumes/jhipster/focpgestionB/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=focpgestionB
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432
