@@ -1,0 +1,116 @@
+
+entity Projet {
+	Idprojet Varchar
+    Intitule String
+    IdAxestrat	String
+    Objectifstrategique String
+    Programme String
+    Projet String
+    Description	String
+    Datedebut Date	
+    Datefin Date
+    DatesignatureConvention Date
+    Budgetotal Int
+    Statut String
+    Partenaires	String
+    Localisations String
+    Observations String
+}
+
+entity AxeStrategique {
+	idAxe String
+    nom String
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Programme {
+	idProgramme String,
+	nom String
+}
+
+entity Partenaire {
+	idPartenaire String,
+	nom String
+}
+
+/**
+ * Task entity.
+ * @author The JHipster team.
+ */
+entity Localisation {
+	idLoc String,
+	nom String
+}
+
+/**
+ * The Employee entity.
+ */
+
+
+
+
+enum Language {
+    FRENCH, ENGLISH, SPANISH
+}
+/**
+*relationship OneToOne {
+*	Country{region} to Region
+*}
+
+*relationship OneToOne {
+*	Projet{country} to Country
+*}
+*/
+relationship OneToOne {
+	Projet{location} to Programme
+}
+
+relationship ManyToMany {
+	Projet{task(title)} to AxeStrategique{job}
+}
+
+relationship ManyToMany {
+	Projet{task(title)} to Partenaire{job}
+}
+
+relationship ManyToMany {
+	Projet{task(title)} to Localisation{job}
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Employee to Job{employee},
+	/**
+	* A relationship
+	*/
+	Department to
+	/**
+	* Another side of the same relationship
+	*/
+	Employee{department}
+}
+
+relationship ManyToOne {
+	Employee{manager} to Employee
+}
+
+// defining multiple oneToOne relationships
+relationship OneToOne {
+	JobHistory{job} to Job,
+	JobHistory{department} to Department,
+	JobHistory{employee} to Employee
+}
+
+// Set pagination options
+paginate JobHistory, Employee with infinite-scroll
+paginate Job with pagination
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Employee, Job
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
